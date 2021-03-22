@@ -1,60 +1,68 @@
+const { default: axios } = require("axios");
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
+
 */
+//const data = axios.get("https://api.github.com/users/Dwalker19922")
+//data.then(dpr =>{
+ // creator(dpr)
+  //  })
 
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
-    data in order to use it to build your component function
+function creator(array){
+  const cards = document.querySelector(".cards")
+  const card = document.createElement("div")
+   cards.appendChild(card)
+  card.className="card"
+  const img = document.createElement("img")
+  card.appendChild(img)
+  img.src =array.data.avatar_url
+  const info = document.createElement("div")
+  card.appendChild(info)
+  const hdr = document.createElement("h3")
+  info.appendChild(hdr)
+  hdr.className="card-info"
+ hdr.textContent=array.data.name
+ hdr.style.fontSize="3em"
+ const para = document.createElement("p")
+ info.appendChild(para)
+ para.classList=array.data.login
+ para.textContent=array.data.login
+ para.style.fontSize="2em"
+const loc=document.createElement("p")
+info.appendChild
+loc.textContent=array.data.location
+const par2=document.createElement("p")
+info.appendChild(par2)
+par2.textContent="Profile:"
+const link = document.createElement("a")
+par2.appendChild(link)
+link.href="https://api.github.com/users/"+array.data.login
+link.textContent="https://api.github.com/users/"+array.data.login
+const followers = document.createElement("p")
+info.appendChild(followers)
+followers.textContent="Followers:"+" "+array.data.followers
+const following = document.createElement("p")
+info.appendChild(following)
+following.textContent="Following:"+" "+array.data.followers
+const bio = document.createElement("p")
+info.appendChild(bio)
+bio.textContent="Bio:"+" "+array.data.bio
+  return console.log(card)
+  }
 
-    Skip to STEP 3.
-*/
+const followersArray = ["Dwalker19922","tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"];
 
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
-
-/*
-  STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
-    manually find some other users' github handles, or use the list found at the
-    bottom of the page. Get at least 5 different Github usernames and add them as
-    Individual strings to the friendsArray below.
-
-    Using that array, iterate over it, requesting data for each user, creating a new card for each
-    user, and adding that card to the DOM.
-*/
-
-const followersArray = [];
-
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
-
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
-
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+   followersArray.forEach(element => {
+   axios.get("https://api.github.com/users/"+element)
+ .then(dpr =>{
+  creator(dpr)
+  console.log(element)
+    })  
+  });
